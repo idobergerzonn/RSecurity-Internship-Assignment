@@ -3,6 +3,7 @@ from pydantic import BaseModel
 from typing import List, Optional
 from datetime import datetime
 import uuid
+from database import db_manager
 
 # Initialize FastAPI app
 app = FastAPI(title="Intelligence Reports API", version="1.0.0")
@@ -20,8 +21,7 @@ class CreateReport(BaseModel):
     content: str
     tags: List[str]
 
-# In-memory storage (simple dictionary)
-reports_db = {}
+# SQLite database storage (replaced dictionary)
 
 # API Endpoints
 @app.post("/report", response_model=Report)
@@ -45,8 +45,8 @@ async def create_report(report: CreateReport):
         date=datetime.now()
     )
     
-    # Store in memory
-    reports_db[report_id] = new_report
+    # Store in SQLite database
+    db_manager.create_report(report_id, report.title, report.content, report.tags, datetime.now())
     
     return new_report
 
@@ -55,10 +55,11 @@ async def get_report(report_id: str):
     """
     Get a specific report by ID
     """
-    if report_id not in reports_db:
+    report_data = db_manager.get_report(report_id)
+    if not report_data:
         raise HTTPException(status_code=404, detail="Report not found")
     
-    return reports_db[report_id]
+    return Report(**report_data)
 
 @app.get("/reports", response_model=List[Report])
 async def get_reports(tag: Optional[str] = None):
@@ -66,14 +67,8 @@ async def get_reports(tag: Optional[str] = None):
     Get all reports, optionally filtered by tag
     - tag: Optional query parameter to filter by tag
     """
-    all_reports = list(reports_db.values())
-    
-    if tag:
-        # Filter reports that contain the specified tag
-        filtered_reports = [report for report in all_reports if tag in report.tags]
-        return filtered_reports
-    
-    return all_reports
+    reports_data = db_manager.get_all_reports(tag)
+    return [Report(**report) for report in reports_data]
 
 # Health check endpoint
 @app.get("/")
