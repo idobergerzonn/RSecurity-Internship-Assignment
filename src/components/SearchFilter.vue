@@ -1,8 +1,8 @@
 <template>
   <div class="search-filter-container">
-    <div class="row">
+    <div class="row g-2 align-items-end">
       <!-- Search Input -->
-      <div class="col-md-6 mb-3">
+      <div class="col-xl-4 col-lg-5 col-md-6">
         <div class="search-box">
           <div class="input-group">
             <span class="input-group-text">
@@ -28,7 +28,7 @@
       </div>
 
       <!-- Action Filter -->
-      <div class="col-md-3 mb-3">
+      <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6">
         <select 
           class="form-select" 
           v-model="selectedAction"
@@ -46,18 +46,29 @@
       </div>
 
       <!-- Date Range Filter -->
-      <div class="col-md-3 mb-3">
-        <select 
-          class="form-select" 
-          v-model="selectedDateRange"
-          @change="handleDateFilter"
-        >
-          <option value="all">All Time</option>
-          <option value="today">Today</option>
-          <option value="yesterday">Yesterday</option>
-          <option value="week">This Week</option>
-          <option value="month">This Month</option>
-        </select>
+      <div class="col-xl-6 col-lg-5 col-md-12">
+        <div class="row g-2">
+          <div class="col-6">
+            <label for="startDate" class="form-label small">Start Date</label>
+            <input
+              type="date"
+              id="startDate"
+              class="form-control"
+              v-model="startDate"
+              @change="handleDateFilter"
+            />
+          </div>
+          <div class="col-6">
+            <label for="endDate" class="form-label small">End Date</label>
+            <input
+              type="date"
+              id="endDate"
+              class="form-control"
+              v-model="endDate"
+              @change="handleDateFilter"
+            />
+          </div>
+        </div>
       </div>
     </div>
 
@@ -84,8 +95,8 @@
           ></button>
         </span>
         
-        <span v-if="selectedDateRange !== 'all'" class="badge bg-warning">
-          Date: {{ selectedDateRange }}
+        <span v-if="startDate || endDate" class="badge bg-warning">
+          Date: {{ formatDateRange() }}
           <button 
             class="btn-close btn-close-white ms-1" 
             @click="clearDateFilter"
@@ -118,10 +129,11 @@ const emit = defineEmits(['search', 'filter', 'dateFilter', 'clearAll'])
 
 const searchTerm = ref('')
 const selectedAction = ref('all')
-const selectedDateRange = ref('all')
+const startDate = ref('')
+const endDate = ref('')
 
 const hasActiveFilters = computed(() => {
-  return searchTerm.value || selectedAction.value !== 'all' || selectedDateRange.value !== 'all'
+  return searchTerm.value || selectedAction.value !== 'all' || startDate.value || endDate.value
 })
 
 const handleSearch = () => {
@@ -133,7 +145,7 @@ const handleFilter = () => {
 }
 
 const handleDateFilter = () => {
-  emit('dateFilter', selectedDateRange.value)
+  emit('dateFilter', { startDate: startDate.value, endDate: endDate.value })
 }
 
 const clearSearch = () => {
@@ -147,19 +159,32 @@ const clearActionFilter = () => {
 }
 
 const clearDateFilter = () => {
-  selectedDateRange.value = 'all'
-  emit('dateFilter', 'all')
+  startDate.value = ''
+  endDate.value = ''
+  emit('dateFilter', { startDate: '', endDate: '' })
 }
 
 const clearAllFilters = () => {
   searchTerm.value = ''
   selectedAction.value = 'all'
-  selectedDateRange.value = 'all'
+  startDate.value = ''
+  endDate.value = ''
   emit('clearAll')
 }
 
 const formatAction = (action) => {
   return action.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
+}
+
+const formatDateRange = () => {
+  if (startDate.value && endDate.value) {
+    return `${startDate.value} to ${endDate.value}`
+  } else if (startDate.value) {
+    return `from ${startDate.value}`
+  } else if (endDate.value) {
+    return `until ${endDate.value}`
+  }
+  return ''
 }
 
 // Watch for external changes
@@ -176,8 +201,17 @@ watch(() => props.uniqueActions, (newActions) => {
   background: white;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  padding: 1.5rem;
+  padding: 1.25rem;
   margin-bottom: 1.5rem;
+}
+
+.row.g-2 {
+  --bs-gutter-x: 0.75rem;
+  --bs-gutter-y: 0.5rem;
+}
+
+.align-items-end {
+  align-items: flex-end !important;
 }
 
 .search-box .input-group-text {

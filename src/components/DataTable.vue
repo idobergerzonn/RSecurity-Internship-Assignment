@@ -199,6 +199,15 @@ watch(currentPage, (newPage, oldPage) => {
   console.log('Forced paginatedData access:', data.length, 'items')
 })
 
+// Reset to page 1 when data changes (e.g., when filters are applied)
+watch(() => props.data, (newData, oldData) => {
+  console.log('Data changed, resetting to page 1:', { 
+    newDataLength: newData?.length, 
+    oldDataLength: oldData?.length 
+  })
+  currentPage.value = 1
+}, { deep: true })
+
 const formatTimestamp = (timestamp) => {
   return new Date(timestamp).toLocaleString()
 }
@@ -253,7 +262,9 @@ const getActionBadgeClass = (action) => {
 }
 
 .sortable:hover {
-  background-color: rgba(0,0,0,0.05);
+  background-color: rgba(13, 110, 253, 0.1);
+  color: #0d6efd;
+  transition: all 0.2s ease;
 }
 
 .sortable i {

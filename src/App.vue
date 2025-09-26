@@ -10,13 +10,21 @@ const allData = ref([])
 const filteredData = ref([])
 const searchTerm = ref('')
 const selectedAction = ref('all')
-const selectedDateRange = ref('all')
+const startDate = ref('')
+const endDate = ref('')
 const isLoading = ref(true)
+const dataLoaded = ref(false)
 
 // Computed properties
-const uniqueActions = computed(() => dataService.getUniqueActions())
-const actionCounts = computed(() => dataService.getActionCounts())
-const userCounts = computed(() => dataService.getUserActivityCounts())
+const uniqueActions = computed(() => {
+  return dataLoaded.value ? dataService.getUniqueActions() : []
+})
+const actionCounts = computed(() => {
+  return dataLoaded.value ? dataService.getActionCounts() : {}
+})
+const userCounts = computed(() => {
+  return dataLoaded.value ? dataService.getUserActivityCounts() : {}
+})
 const timeData = computed(() => getTimeDistribution())
 
 // Load data on mount
@@ -29,8 +37,10 @@ const loadData = async () => {
     isLoading.value = true
     await dataService.loadData()
     allData.value = dataService.getAllData()
+    dataLoaded.value = true
     applyFilters()
     console.log('Dashboard data loaded:', allData.value.length, 'records')
+    console.log('Available actions:', dataService.getUniqueActions())
   } catch (error) {
     console.error('Error loading dashboard data:', error)
   } finally {
@@ -42,38 +52,30 @@ const applyFilters = () => {
   let data = dataService.getFilteredData(searchTerm.value, selectedAction.value)
   
   // Apply date filter
-  if (selectedDateRange.value !== 'all') {
-    data = filterByDateRange(data, selectedDateRange.value)
+  if (startDate.value || endDate.value) {
+    data = filterByDateRange(data, startDate.value, endDate.value)
   }
   
   filteredData.value = data
 }
 
-const filterByDateRange = (data, range) => {
-  const now = new Date()
-  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
-  
+const filterByDateRange = (data, startDate, endDate) => {
   return data.filter(item => {
     const itemDate = new Date(item.timestamp)
+    const itemDateString = itemDate.toISOString().split('T')[0] // Get YYYY-MM-DD format
     
-    switch (range) {
-      case 'today':
-        return itemDate >= today
-      case 'yesterday':
-        const yesterday = new Date(today)
-        yesterday.setDate(yesterday.getDate() - 1)
-        return itemDate >= yesterday && itemDate < today
-      case 'week':
-        const weekAgo = new Date(today)
-        weekAgo.setDate(weekAgo.getDate() - 7)
-        return itemDate >= weekAgo
-      case 'month':
-        const monthAgo = new Date(today)
-        monthAgo.setMonth(monthAgo.getMonth() - 1)
-        return itemDate >= monthAgo
-      default:
-        return true
+    let startMatch = true
+    let endMatch = true
+    
+    if (startDate) {
+      startMatch = itemDateString >= startDate
     }
+    
+    if (endDate) {
+      endMatch = itemDateString <= endDate
+    }
+    
+    return startMatch && endMatch
   })
 }
 
@@ -101,15 +103,17 @@ const handleFilter = (action) => {
   applyFilters()
 }
 
-const handleDateFilter = (range) => {
-  selectedDateRange.value = range
+const handleDateFilter = (dateRange) => {
+  startDate.value = dateRange.startDate
+  endDate.value = dateRange.endDate
   applyFilters()
 }
 
 const handleClearAll = () => {
   searchTerm.value = ''
   selectedAction.value = 'all'
-  selectedDateRange.value = 'all'
+  startDate.value = ''
+  endDate.value = ''
   applyFilters()
 }
 </script>
