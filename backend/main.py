@@ -1,4 +1,5 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from typing import List, Optional
 from datetime import datetime
@@ -7,6 +8,9 @@ from database import db_manager
 
 # Initialize FastAPI app
 app = FastAPI(title="Intelligence Reports API", version="1.0.0")
+
+# API Key Configuration
+API_KEY = "your-secret-api-key-12345"  # Change this to a secure key
 
 # Data models using Pydantic
 class Report(BaseModel):
@@ -21,7 +25,33 @@ class CreateReport(BaseModel):
     content: str
     tags: List[str]
 
-# SQLite database storage (replaced dictionary)
+# API Key Middleware
+@app.middleware("http")
+async def api_key_middleware(request: Request, call_next):
+    """
+    Middleware to check API key for protected endpoints
+    """
+    # Skip authentication for health check endpoint
+    if request.url.path == "/":
+        return await call_next(request)
+    
+    # Check for API key in headers
+    api_key = request.headers.get("X-API-Key")
+    
+    if not api_key:
+        return JSONResponse(
+            status_code=401,
+            content={"detail": "API key required. Please provide X-API-Key header."}
+        )
+    
+    if api_key != API_KEY:
+        return JSONResponse(
+            status_code=401,
+            content={"detail": "Invalid API key."}
+        )
+    
+    # API key is valid, continue with the request
+    return await call_next(request)
 
 # API Endpoints
 @app.post("/report", response_model=Report)

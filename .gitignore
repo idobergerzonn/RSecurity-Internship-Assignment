@@ -82,3 +82,9 @@ venv.bak/
 *.swp
 *.swo
 *~
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+reports.db
