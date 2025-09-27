@@ -68,42 +68,39 @@ class DatabaseManager:
                 }
             return None
     
-    def get_all_reports(self, tag: Optional[str] = None) -> List[Dict[str, Any]]:
-        """Get all reports, optionally filtered by tag"""
+    def get_reports(self, search_text: Optional[str] = None, tag: Optional[str] = None) -> List[Dict[str, Any]]:
+        """Get reports, optionally filtered by text and/or tag"""
         with self.get_connection() as conn:
             cursor = conn.cursor()
-            
-            if tag:
-                # Filter reports that contain the specified tag
-                cursor.execute('SELECT id, title, content, tags, date FROM reports')
-                rows = cursor.fetchall()
-                
-                reports = []
-                for row in rows:
-                    report_tags = json.loads(row[3])
-                    if tag in report_tags:
-                        reports.append({
-                            "id": row[0],
-                            "title": row[1],
-                            "content": row[2],
-                            "tags": report_tags,
-                            "date": datetime.fromisoformat(row[4])
-                        })
-                return reports
-            else:
-                cursor.execute('SELECT id, title, content, tags, date FROM reports')
-                rows = cursor.fetchall()
-                
-                reports = []
-                for row in rows:
-                    reports.append({
-                        "id": row[0],
-                        "title": row[1],
-                        "content": row[2],
-                        "tags": json.loads(row[3]),
-                        "date": datetime.fromisoformat(row[4])
-                    })
-                return reports
+            reports = []
+
+            # Base query
+            base_query = 'SELECT id, title, content, tags, date FROM reports'
+            params = []
+
+            # Is text search required
+            if search_text:
+                base_query += ' WHERE title LIKE ? OR content LIKE ?'
+                pattern = f'%{search_text}%'
+                params.extend([pattern, pattern])
+
+            cursor.execute(base_query, params)
+            rows = cursor.fetchall()
+
+            for row in rows:
+                report_tags = json.loads(row[3])
+                # If tag filtering is required
+                if tag and tag not in report_tags:
+                    continue
+                reports.append({
+                    "id": row[0],
+                    "title": row[1],
+                    "content": row[2],
+                    "tags": report_tags,
+                    "date": datetime.fromisoformat(row[4])
+                })
+
+            return reports
 
 # Global database instance
 db_manager = DatabaseManager()

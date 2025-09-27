@@ -92,12 +92,13 @@ async def get_report(report_id: str):
     return Report(**report_data)
 
 @app.get("/reports", response_model=List[Report])
-async def get_reports(tag: Optional[str] = None):
+async def get_reports(tag: Optional[str] = None, search: Optional[str] = None):
     """
-    Get all reports, optionally filtered by tag
+    Get all reports, optionally filtered by tag and/or search text
     - tag: Optional query parameter to filter by tag
+    - search: Optional query parameter to search text in title and content
     """
-    reports_data = db_manager.get_all_reports(tag)
+    reports_data = db_manager.get_reports(search_text=search, tag=tag)
     return [Report(**report) for report in reports_data]
 
 # Health check endpoint
