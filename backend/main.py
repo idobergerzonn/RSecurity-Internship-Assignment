@@ -1,10 +1,16 @@
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse
-from pydantic import BaseModel
+from fastapi.exceptions import RequestValidationError
+from pydantic import BaseModel, ValidationError
 from typing import List, Optional
 from datetime import datetime
 import uuid
 from database import db_manager
+from error_handling import (
+    ErrorResponse, ValidationErrorResponse,
+    validate_request_body, validate_report_data, create_error_response, handle_error,
+    validation_exception_handler, pydantic_validation_error_handler, value_error_handler
+)
 
 # Initialize FastAPI app
 app = FastAPI(title="Intelligence Reports API", version="1.0.0")
@@ -20,10 +26,11 @@ class Report(BaseModel):
     tags: List[str]
     date: datetime
 
-class CreateReport(BaseModel):
-    title: str
-    content: str
-    tags: List[str]
+# Register exception handlers
+app.add_exception_handler(RequestValidationError, validation_exception_handler)
+app.add_exception_handler(ValidationError, pydantic_validation_error_handler)
+app.add_exception_handler(ValueError, value_error_handler)
+
 
 # API Key Middleware
 @app.middleware("http")
@@ -53,53 +60,84 @@ async def api_key_middleware(request: Request, call_next):
     # API key is valid, continue with the request
     return await call_next(request)
 
+
 # API Endpoints
-@app.post("/report", response_model=Report)
-async def create_report(report: CreateReport):
+@app.post("/report", response_model=Report, responses={
+    200: {"description": "Report created successfully"},
+    400: {"description": "Bad request - Missing or invalid request body", "model": ErrorResponse},
+    422: {"description": "Validation error - Invalid field values", "model": ValidationErrorResponse},
+    500: {"description": "Internal server error", "model": ErrorResponse}
+})
+async def create_report(request: Request):
     """
     Create a new intelligence report
-    - title: Report title
-    - content: Report content
-    - tags: List of tags
+    - title: Report title (required, 1-200 characters)
+    - content: Report content (required, non-empty)
+    - tags: List of tags (required, at least one non-empty tag)
     - date: Automatically set to current time
     """
-    # Generate unique ID
-    report_id = str(uuid.uuid4())
-    
-    # Create new report
-    new_report = Report(
-        id=report_id,
-        title=report.title,
-        content=report.content,
-        tags=report.tags,
-        date=datetime.now()
-    )
-    
-    # Store in SQLite database
-    db_manager.create_report(report_id, report.title, report.content, report.tags, datetime.now())
-    
-    return new_report
+    try:
+        # Validate request body
+        is_valid, error_response, body_data = await validate_request_body(request)
+        if not is_valid:
+            return error_response
+        
+        # Validate report data
+        report = validate_report_data(body_data)
+        
+        # Generate unique ID and create report
+        report_id = str(uuid.uuid4())
+        new_report = Report(
+            id=report_id,
+            title=report.title,
+            content=report.content,
+            tags=report.tags,
+            date=datetime.now()
+        )
+        
+        # Store in database
+        db_manager.create_report(report_id, report.title, report.content, report.tags, datetime.now())
+        return new_report
+        
+    except (ValidationError, ValueError) as e:
+        raise e  # Handled by exception handlers
+    except Exception as e:
+        return handle_error(e, "creating report")
 
-@app.get("/report/{report_id}", response_model=Report)
+@app.get("/report/{report_id}", response_model=Report, responses={
+    200: {"description": "Report found successfully"},
+    404: {"description": "Report not found", "model": ErrorResponse},
+    500: {"description": "Internal server error", "model": ErrorResponse}
+})
 async def get_report(report_id: str):
     """
     Get a specific report by ID
+    - report_id: UUID of the report to retrieve
     """
-    report_data = db_manager.get_report(report_id)
-    if not report_data:
-        raise HTTPException(status_code=404, detail="Report not found")
-    
-    return Report(**report_data)
+    try:
+        report_data = db_manager.get_report(report_id)
+        if not report_data:
+            return create_error_response(f"Report with ID '{report_id}' not found", 404)
+        
+        return Report(**report_data)
+    except Exception as e:
+        return handle_error(e, "retrieving report")
 
-@app.get("/reports", response_model=List[Report])
+@app.get("/reports", response_model=List[Report], responses={
+    200: {"description": "Reports retrieved successfully"},
+    500: {"description": "Internal server error", "model": ErrorResponse}
+})
 async def get_reports(tag: Optional[str] = None, search: Optional[str] = None):
     """
     Get all reports, optionally filtered by tag and/or search text
     - tag: Optional query parameter to filter by tag
     - search: Optional query parameter to search text in title and content
     """
-    reports_data = db_manager.get_reports(search_text=search, tag=tag)
-    return [Report(**report) for report in reports_data]
+    try:
+        reports_data = db_manager.get_reports(search_text=search, tag=tag)
+        return [Report(**report) for report in reports_data]
+    except Exception as e:
+        return handle_error(e, "retrieving reports")
 
 # Health check endpoint
 @app.get("/")
