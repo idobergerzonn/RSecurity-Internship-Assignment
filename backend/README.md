@@ -36,6 +36,14 @@ The Swagger documentation includes:
 - Example requests and responses
 - Interactive testing interface
 
+### Testing with Postman
+
+1. **Import the API**: Use the `swagger.yaml` file to import the API specification into Postman
+2. **Set up authentication**: In the Authorization tab,configure the X-API-Key header with value `your-secret-api-key-12345` for all requests except '/'
+3. **Test endpoints**: Use the imported collection to test all available endpoints
+4. **Environment variables**: Create a Postman environment with variables for the base URL and API key
+
+
 ## API Endpoints
 
 | Method | Endpoint | Description | Auth Required |
