@@ -34,7 +34,6 @@ The Swagger documentation includes:
 - Request/response schemas
 - Authentication requirements
 - Example requests and responses
-- Interactive testing interface
 
 ### Testing with Postman
 
@@ -72,6 +71,8 @@ All endpoints except the health check require an API key:
 
 - `main.py` - FastAPI application
 - `database.py` - Database management
+- `error_handling.py` - Comprehensive error handling, validation models, and exception handlers
 - `swagger.yaml` - API documentation
 - `requirements.txt` - Python dependencies
 - `run_server.py` - Server startup script
+
