@@ -1,15 +1,15 @@
 {
   "analysis_metadata": {
     "total_log_entries": 416,
-    "analysis_timestamp": "2025-09-27T14:21:52.794157",
+    "analysis_timestamp": "2025-09-27T16:18:32.190204",
     "total_anomalies_found": 83,
     "anomaly_types": [
-      "privilege_escalation",
       "geo_hop",
-      "external_ip_access",
-      "suspicious_ip",
+      "privilege_escalation",
       "brute_force_attempt",
-      "off_hours_login"
+      "external_ip_access",
+      "off_hours_login",
+      "suspicious_ip"
     ],
     "severity_distribution": {
       "high": 8,
@@ -31,7 +31,12 @@
         "affected_users": [
           "user14"
         ]
-      }
+      },
+      "mitigation_suggestions": [
+        "Block the suspicious IP address immediately",
+        "Enable account lockout after 3 failed attempts",
+        "Alert security team and investigate the source"
+      ]
     },
     {
       "timestamp": "2025-09-02T05:34:00",
@@ -46,7 +51,13 @@
         "time_diff_minutes": 14.0,
         "from_internal": false,
         "to_internal": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Immediately suspend user account for security review",
+        "Force password reset and re-authentication",
+        "Alert security team for potential account compromise",
+        "Check for unauthorized access to user credentials"
+      ]
     },
     {
       "timestamp": "2025-09-02T02:38:00",
@@ -57,7 +68,13 @@
       "severity": "high",
       "details": {
         "failed_attempts_before_success": 4
-      }
+      },
+      "mitigation_suggestions": [
+        "Immediately suspend the user account",
+        "Force password reset and re-authentication",
+        "Alert security team for potential account takeover",
+        "Review user's recent activity for unauthorized access"
+      ]
     },
     {
       "timestamp": "2025-09-01T23:45:00",
@@ -72,7 +89,13 @@
         "time_diff_minutes": 5.0,
         "from_internal": false,
         "to_internal": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Immediately suspend user account for security review",
+        "Force password reset and re-authentication",
+        "Alert security team for potential account compromise",
+        "Check for unauthorized access to user credentials"
+      ]
     },
     {
       "timestamp": "2025-09-01T14:36:00",
@@ -87,7 +110,13 @@
         "time_diff_minutes": 2.0,
         "from_internal": true,
         "to_internal": false
-      }
+      },
+      "mitigation_suggestions": [
+        "Immediately suspend user account for security review",
+        "Force password reset and re-authentication",
+        "Alert security team for potential account compromise",
+        "Check for unauthorized access to user credentials"
+      ]
     },
     {
       "timestamp": "2025-09-01T14:05:00",
@@ -102,7 +131,13 @@
         "time_diff_minutes": 2.0,
         "from_internal": true,
         "to_internal": false
-      }
+      },
+      "mitigation_suggestions": [
+        "Immediately suspend user account for security review",
+        "Force password reset and re-authentication",
+        "Alert security team for potential account compromise",
+        "Check for unauthorized access to user credentials"
+      ]
     },
     {
       "timestamp": "2025-09-01T12:42:00",
@@ -117,7 +152,13 @@
         "time_diff_minutes": 9.0,
         "from_internal": false,
         "to_internal": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Immediately suspend user account for security review",
+        "Force password reset and re-authentication",
+        "Alert security team for potential account compromise",
+        "Check for unauthorized access to user credentials"
+      ]
     },
     {
       "timestamp": "2025-09-01T12:26:00",
@@ -132,7 +173,13 @@
         "time_diff_minutes": 14.0,
         "from_internal": true,
         "to_internal": false
-      }
+      },
+      "mitigation_suggestions": [
+        "Immediately suspend user account for security review",
+        "Force password reset and re-authentication",
+        "Alert security team for potential account compromise",
+        "Check for unauthorized access to user credentials"
+      ]
     },
     {
       "timestamp": "2025-09-02T07:38:00",
@@ -143,7 +190,13 @@
       "severity": "medium",
       "details": {
         "ip_type": "known_suspicious"
-      }
+      },
+      "mitigation_suggestions": [
+        "Block the known suspicious IP address",
+        "Add IP to firewall blacklist",
+        "Monitor for additional activity from this IP",
+        "Alert security team for investigation"
+      ]
     },
     {
       "timestamp": "2025-09-02T05:49:00",
@@ -155,7 +208,13 @@
       "details": {
         "ip_type": "external",
         "off_hours": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor user activity for suspicious behavior",
+        "Consider implementing VPN requirement for external access",
+        "Alert user's manager if unusual access pattern"
+      ]
     },
     {
       "timestamp": "2025-09-02T05:49:00",
@@ -169,7 +228,12 @@
         "business_hours": "8-18",
         "external_ip": true,
         "failed_attempt": false
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor for additional suspicious activity",
+        "Alert user's manager if pattern continues"
+      ]
     },
     {
       "timestamp": "2025-09-02T05:24:00",
@@ -181,7 +245,13 @@
       "details": {
         "ip_type": "external",
         "off_hours": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor user activity for suspicious behavior",
+        "Consider implementing VPN requirement for external access",
+        "Alert user's manager if unusual access pattern"
+      ]
     },
     {
       "timestamp": "2025-09-02T05:24:00",
@@ -195,7 +265,12 @@
         "business_hours": "8-18",
         "external_ip": true,
         "failed_attempt": false
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor for additional suspicious activity",
+        "Alert user's manager if pattern continues"
+      ]
     },
     {
       "timestamp": "2025-09-02T05:20:00",
@@ -207,7 +282,13 @@
       "details": {
         "ip_type": "external",
         "off_hours": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor user activity for suspicious behavior",
+        "Consider implementing VPN requirement for external access",
+        "Alert user's manager if unusual access pattern"
+      ]
     },
     {
       "timestamp": "2025-09-02T05:20:00",
@@ -221,7 +302,12 @@
         "business_hours": "8-18",
         "external_ip": true,
         "failed_attempt": false
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor for additional suspicious activity",
+        "Alert user's manager if pattern continues"
+      ]
     },
     {
       "timestamp": "2025-09-02T04:41:00",
@@ -233,7 +319,13 @@
       "details": {
         "ip_type": "external",
         "off_hours": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor user activity for suspicious behavior",
+        "Consider implementing VPN requirement for external access",
+        "Alert user's manager if unusual access pattern"
+      ]
     },
     {
       "timestamp": "2025-09-02T04:41:00",
@@ -247,7 +339,12 @@
         "business_hours": "8-18",
         "external_ip": true,
         "failed_attempt": false
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor for additional suspicious activity",
+        "Alert user's manager if pattern continues"
+      ]
     },
     {
       "timestamp": "2025-09-02T04:04:00",
@@ -259,7 +356,13 @@
       "details": {
         "ip_type": "external",
         "off_hours": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor user activity for suspicious behavior",
+        "Consider implementing VPN requirement for external access",
+        "Alert user's manager if unusual access pattern"
+      ]
     },
     {
       "timestamp": "2025-09-02T04:04:00",
@@ -273,7 +376,12 @@
         "business_hours": "8-18",
         "external_ip": true,
         "failed_attempt": false
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor for additional suspicious activity",
+        "Alert user's manager if pattern continues"
+      ]
     },
     {
       "timestamp": "2025-09-02T03:48:00",
@@ -285,7 +393,13 @@
       "details": {
         "ip_type": "external",
         "off_hours": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor user activity for suspicious behavior",
+        "Consider implementing VPN requirement for external access",
+        "Alert user's manager if unusual access pattern"
+      ]
     },
     {
       "timestamp": "2025-09-02T03:48:00",
@@ -299,7 +413,12 @@
         "business_hours": "8-18",
         "external_ip": true,
         "failed_attempt": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor for additional suspicious activity",
+        "Alert user's manager if pattern continues"
+      ]
     },
     {
       "timestamp": "2025-09-02T03:35:00",
@@ -311,7 +430,13 @@
       "details": {
         "ip_type": "external",
         "off_hours": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor user activity for suspicious behavior",
+        "Consider implementing VPN requirement for external access",
+        "Alert user's manager if unusual access pattern"
+      ]
     },
     {
       "timestamp": "2025-09-02T03:35:00",
@@ -325,7 +450,12 @@
         "business_hours": "8-18",
         "external_ip": true,
         "failed_attempt": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor for additional suspicious activity",
+        "Alert user's manager if pattern continues"
+      ]
     },
     {
       "timestamp": "2025-09-02T03:27:00",
@@ -337,7 +467,13 @@
       "details": {
         "ip_type": "external",
         "off_hours": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor user activity for suspicious behavior",
+        "Consider implementing VPN requirement for external access",
+        "Alert user's manager if unusual access pattern"
+      ]
     },
     {
       "timestamp": "2025-09-02T03:27:00",
@@ -351,7 +487,12 @@
         "business_hours": "8-18",
         "external_ip": true,
         "failed_attempt": false
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor for additional suspicious activity",
+        "Alert user's manager if pattern continues"
+      ]
     },
     {
       "timestamp": "2025-09-02T02:54:00",
@@ -363,7 +504,13 @@
       "details": {
         "ip_type": "external",
         "off_hours": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor user activity for suspicious behavior",
+        "Consider implementing VPN requirement for external access",
+        "Alert user's manager if unusual access pattern"
+      ]
     },
     {
       "timestamp": "2025-09-02T02:54:00",
@@ -377,7 +524,12 @@
         "business_hours": "8-18",
         "external_ip": true,
         "failed_attempt": false
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor for additional suspicious activity",
+        "Alert user's manager if pattern continues"
+      ]
     },
     {
       "timestamp": "2025-09-02T02:23:00",
@@ -389,7 +541,13 @@
       "details": {
         "ip_type": "external",
         "off_hours": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor user activity for suspicious behavior",
+        "Consider implementing VPN requirement for external access",
+        "Alert user's manager if unusual access pattern"
+      ]
     },
     {
       "timestamp": "2025-09-02T02:23:00",
@@ -403,7 +561,12 @@
         "business_hours": "8-18",
         "external_ip": true,
         "failed_attempt": false
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor for additional suspicious activity",
+        "Alert user's manager if pattern continues"
+      ]
     },
     {
       "timestamp": "2025-09-02T02:21:00",
@@ -415,7 +578,13 @@
       "details": {
         "ip_type": "external",
         "off_hours": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor user activity for suspicious behavior",
+        "Consider implementing VPN requirement for external access",
+        "Alert user's manager if unusual access pattern"
+      ]
     },
     {
       "timestamp": "2025-09-02T02:21:00",
@@ -429,7 +598,12 @@
         "business_hours": "8-18",
         "external_ip": true,
         "failed_attempt": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor for additional suspicious activity",
+        "Alert user's manager if pattern continues"
+      ]
     },
     {
       "timestamp": "2025-09-02T02:05:00",
@@ -441,7 +615,13 @@
       "details": {
         "ip_type": "external",
         "off_hours": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor user activity for suspicious behavior",
+        "Consider implementing VPN requirement for external access",
+        "Alert user's manager if unusual access pattern"
+      ]
     },
     {
       "timestamp": "2025-09-02T02:05:00",
@@ -455,7 +635,12 @@
         "business_hours": "8-18",
         "external_ip": true,
         "failed_attempt": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor for additional suspicious activity",
+        "Alert user's manager if pattern continues"
+      ]
     },
     {
       "timestamp": "2025-09-02T01:39:00",
@@ -467,7 +652,13 @@
       "details": {
         "ip_type": "external",
         "off_hours": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor user activity for suspicious behavior",
+        "Consider implementing VPN requirement for external access",
+        "Alert user's manager if unusual access pattern"
+      ]
     },
     {
       "timestamp": "2025-09-02T01:39:00",
@@ -481,7 +672,12 @@
         "business_hours": "8-18",
         "external_ip": true,
         "failed_attempt": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor for additional suspicious activity",
+        "Alert user's manager if pattern continues"
+      ]
     },
     {
       "timestamp": "2025-09-02T01:08:00",
@@ -492,7 +688,13 @@
       "severity": "medium",
       "details": {
         "ip_type": "known_suspicious"
-      }
+      },
+      "mitigation_suggestions": [
+        "Block the known suspicious IP address",
+        "Add IP to firewall blacklist",
+        "Monitor for additional activity from this IP",
+        "Alert security team for investigation"
+      ]
     },
     {
       "timestamp": "2025-09-02T01:08:00",
@@ -506,7 +708,12 @@
         "business_hours": "8-18",
         "external_ip": true,
         "failed_attempt": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor for additional suspicious activity",
+        "Alert user's manager if pattern continues"
+      ]
     },
     {
       "timestamp": "2025-09-01T23:53:00",
@@ -518,7 +725,13 @@
       "details": {
         "ip_type": "external",
         "off_hours": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor user activity for suspicious behavior",
+        "Consider implementing VPN requirement for external access",
+        "Alert user's manager if unusual access pattern"
+      ]
     },
     {
       "timestamp": "2025-09-01T23:53:00",
@@ -532,7 +745,12 @@
         "business_hours": "8-18",
         "external_ip": true,
         "failed_attempt": false
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor for additional suspicious activity",
+        "Alert user's manager if pattern continues"
+      ]
     },
     {
       "timestamp": "2025-09-01T23:40:00",
@@ -544,7 +762,13 @@
       "details": {
         "ip_type": "external",
         "off_hours": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor user activity for suspicious behavior",
+        "Consider implementing VPN requirement for external access",
+        "Alert user's manager if unusual access pattern"
+      ]
     },
     {
       "timestamp": "2025-09-01T23:40:00",
@@ -558,7 +782,12 @@
         "business_hours": "8-18",
         "external_ip": true,
         "failed_attempt": false
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor for additional suspicious activity",
+        "Alert user's manager if pattern continues"
+      ]
     },
     {
       "timestamp": "2025-09-01T23:28:00",
@@ -570,7 +799,13 @@
       "details": {
         "ip_type": "external",
         "off_hours": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor user activity for suspicious behavior",
+        "Consider implementing VPN requirement for external access",
+        "Alert user's manager if unusual access pattern"
+      ]
     },
     {
       "timestamp": "2025-09-01T23:28:00",
@@ -584,7 +819,12 @@
         "business_hours": "8-18",
         "external_ip": true,
         "failed_attempt": false
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor for additional suspicious activity",
+        "Alert user's manager if pattern continues"
+      ]
     },
     {
       "timestamp": "2025-09-01T23:24:00",
@@ -596,7 +836,13 @@
       "details": {
         "ip_type": "external",
         "off_hours": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor user activity for suspicious behavior",
+        "Consider implementing VPN requirement for external access",
+        "Alert user's manager if unusual access pattern"
+      ]
     },
     {
       "timestamp": "2025-09-01T23:24:00",
@@ -610,7 +856,12 @@
         "business_hours": "8-18",
         "external_ip": true,
         "failed_attempt": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor for additional suspicious activity",
+        "Alert user's manager if pattern continues"
+      ]
     },
     {
       "timestamp": "2025-09-01T23:11:00",
@@ -622,7 +873,13 @@
       "details": {
         "ip_type": "external",
         "off_hours": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor user activity for suspicious behavior",
+        "Consider implementing VPN requirement for external access",
+        "Alert user's manager if unusual access pattern"
+      ]
     },
     {
       "timestamp": "2025-09-01T23:11:00",
@@ -636,7 +893,12 @@
         "business_hours": "8-18",
         "external_ip": true,
         "failed_attempt": false
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor for additional suspicious activity",
+        "Alert user's manager if pattern continues"
+      ]
     },
     {
       "timestamp": "2025-09-01T21:48:00",
@@ -647,7 +909,13 @@
       "severity": "medium",
       "details": {
         "ip_type": "known_suspicious"
-      }
+      },
+      "mitigation_suggestions": [
+        "Block the known suspicious IP address",
+        "Add IP to firewall blacklist",
+        "Monitor for additional activity from this IP",
+        "Alert security team for investigation"
+      ]
     },
     {
       "timestamp": "2025-09-01T21:45:00",
@@ -658,7 +926,13 @@
       "severity": "medium",
       "details": {
         "ip_type": "known_suspicious"
-      }
+      },
+      "mitigation_suggestions": [
+        "Block the known suspicious IP address",
+        "Add IP to firewall blacklist",
+        "Monitor for additional activity from this IP",
+        "Alert security team for investigation"
+      ]
     },
     {
       "timestamp": "2025-09-01T21:45:00",
@@ -672,7 +946,12 @@
         "business_hours": "8-18",
         "external_ip": true,
         "failed_attempt": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor for additional suspicious activity",
+        "Alert user's manager if pattern continues"
+      ]
     },
     {
       "timestamp": "2025-09-01T21:39:00",
@@ -684,7 +963,13 @@
       "details": {
         "ip_type": "external",
         "off_hours": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor user activity for suspicious behavior",
+        "Consider implementing VPN requirement for external access",
+        "Alert user's manager if unusual access pattern"
+      ]
     },
     {
       "timestamp": "2025-09-01T21:39:00",
@@ -698,7 +983,12 @@
         "business_hours": "8-18",
         "external_ip": true,
         "failed_attempt": false
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor for additional suspicious activity",
+        "Alert user's manager if pattern continues"
+      ]
     },
     {
       "timestamp": "2025-09-01T19:57:00",
@@ -709,7 +999,13 @@
       "severity": "medium",
       "details": {
         "ip_type": "known_suspicious"
-      }
+      },
+      "mitigation_suggestions": [
+        "Block the known suspicious IP address",
+        "Add IP to firewall blacklist",
+        "Monitor for additional activity from this IP",
+        "Alert security team for investigation"
+      ]
     },
     {
       "timestamp": "2025-09-01T19:57:00",
@@ -723,7 +1019,12 @@
         "business_hours": "8-18",
         "external_ip": true,
         "failed_attempt": false
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor for additional suspicious activity",
+        "Alert user's manager if pattern continues"
+      ]
     },
     {
       "timestamp": "2025-09-01T19:42:00",
@@ -735,7 +1036,13 @@
       "details": {
         "ip_type": "external",
         "off_hours": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor user activity for suspicious behavior",
+        "Consider implementing VPN requirement for external access",
+        "Alert user's manager if unusual access pattern"
+      ]
     },
     {
       "timestamp": "2025-09-01T19:42:00",
@@ -749,7 +1056,12 @@
         "business_hours": "8-18",
         "external_ip": true,
         "failed_attempt": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Verify user identity through additional authentication",
+        "Monitor for additional suspicious activity",
+        "Alert user's manager if pattern continues"
+      ]
     },
     {
       "timestamp": "2025-09-01T17:32:00",
@@ -760,7 +1072,13 @@
       "severity": "medium",
       "details": {
         "ip_type": "known_suspicious"
-      }
+      },
+      "mitigation_suggestions": [
+        "Block the known suspicious IP address",
+        "Add IP to firewall blacklist",
+        "Monitor for additional activity from this IP",
+        "Alert security team for investigation"
+      ]
     },
     {
       "timestamp": "2025-09-01T15:00:00",
@@ -771,7 +1089,13 @@
       "severity": "medium",
       "details": {
         "ip_type": "known_suspicious"
-      }
+      },
+      "mitigation_suggestions": [
+        "Block the known suspicious IP address",
+        "Add IP to firewall blacklist",
+        "Monitor for additional activity from this IP",
+        "Alert security team for investigation"
+      ]
     },
     {
       "timestamp": "2025-09-01T14:42:00",
@@ -782,7 +1106,13 @@
       "severity": "medium",
       "details": {
         "ip_type": "known_suspicious"
-      }
+      },
+      "mitigation_suggestions": [
+        "Block the known suspicious IP address",
+        "Add IP to firewall blacklist",
+        "Monitor for additional activity from this IP",
+        "Alert security team for investigation"
+      ]
     },
     {
       "timestamp": "2025-09-01T13:12:00",
@@ -793,7 +1123,13 @@
       "severity": "medium",
       "details": {
         "ip_type": "known_suspicious"
-      }
+      },
+      "mitigation_suggestions": [
+        "Block the known suspicious IP address",
+        "Add IP to firewall blacklist",
+        "Monitor for additional activity from this IP",
+        "Alert security team for investigation"
+      ]
     },
     {
       "timestamp": "2025-09-01T11:43:00",
@@ -804,7 +1140,13 @@
       "severity": "medium",
       "details": {
         "ip_type": "known_suspicious"
-      }
+      },
+      "mitigation_suggestions": [
+        "Block the known suspicious IP address",
+        "Add IP to firewall blacklist",
+        "Monitor for additional activity from this IP",
+        "Alert security team for investigation"
+      ]
     },
     {
       "timestamp": "2025-09-01T09:06:00",
@@ -815,7 +1157,13 @@
       "severity": "medium",
       "details": {
         "ip_type": "known_suspicious"
-      }
+      },
+      "mitigation_suggestions": [
+        "Block the known suspicious IP address",
+        "Add IP to firewall blacklist",
+        "Monitor for additional activity from this IP",
+        "Alert security team for investigation"
+      ]
     },
     {
       "timestamp": "2025-09-02T07:55:00",
@@ -829,7 +1177,11 @@
         "business_hours": "8-18",
         "external_ip": false,
         "failed_attempt": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Log the activity for security review",
+        "Monitor for additional off-hours access"
+      ]
     },
     {
       "timestamp": "2025-09-02T07:30:00",
@@ -843,7 +1195,11 @@
         "business_hours": "8-18",
         "external_ip": false,
         "failed_attempt": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Log the activity for security review",
+        "Monitor for additional off-hours access"
+      ]
     },
     {
       "timestamp": "2025-09-02T07:13:00",
@@ -857,7 +1213,11 @@
         "business_hours": "8-18",
         "external_ip": false,
         "failed_attempt": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Log the activity for security review",
+        "Monitor for additional off-hours access"
+      ]
     },
     {
       "timestamp": "2025-09-02T06:41:00",
@@ -871,7 +1231,11 @@
         "business_hours": "8-18",
         "external_ip": false,
         "failed_attempt": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Log the activity for security review",
+        "Monitor for additional off-hours access"
+      ]
     },
     {
       "timestamp": "2025-09-02T06:34:00",
@@ -885,7 +1249,11 @@
         "business_hours": "8-18",
         "external_ip": false,
         "failed_attempt": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Log the activity for security review",
+        "Monitor for additional off-hours access"
+      ]
     },
     {
       "timestamp": "2025-09-02T05:05:00",
@@ -899,7 +1267,11 @@
         "business_hours": "8-18",
         "external_ip": false,
         "failed_attempt": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Log the activity for security review",
+        "Monitor for additional off-hours access"
+      ]
     },
     {
       "timestamp": "2025-09-02T04:53:00",
@@ -913,7 +1285,11 @@
         "business_hours": "8-18",
         "external_ip": false,
         "failed_attempt": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Log the activity for security review",
+        "Monitor for additional off-hours access"
+      ]
     },
     {
       "timestamp": "2025-09-02T04:33:00",
@@ -927,7 +1303,11 @@
         "business_hours": "8-18",
         "external_ip": false,
         "failed_attempt": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Log the activity for security review",
+        "Monitor for additional off-hours access"
+      ]
     },
     {
       "timestamp": "2025-09-02T04:22:00",
@@ -941,7 +1321,11 @@
         "business_hours": "8-18",
         "external_ip": false,
         "failed_attempt": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Log the activity for security review",
+        "Monitor for additional off-hours access"
+      ]
     },
     {
       "timestamp": "2025-09-02T03:21:00",
@@ -955,7 +1339,11 @@
         "business_hours": "8-18",
         "external_ip": false,
         "failed_attempt": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Log the activity for security review",
+        "Monitor for additional off-hours access"
+      ]
     },
     {
       "timestamp": "2025-09-02T03:17:00",
@@ -969,7 +1357,11 @@
         "business_hours": "8-18",
         "external_ip": false,
         "failed_attempt": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Log the activity for security review",
+        "Monitor for additional off-hours access"
+      ]
     },
     {
       "timestamp": "2025-09-02T02:28:00",
@@ -983,7 +1375,11 @@
         "business_hours": "8-18",
         "external_ip": false,
         "failed_attempt": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Log the activity for security review",
+        "Monitor for additional off-hours access"
+      ]
     },
     {
       "timestamp": "2025-09-02T01:21:00",
@@ -997,7 +1393,11 @@
         "business_hours": "8-18",
         "external_ip": false,
         "failed_attempt": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Log the activity for security review",
+        "Monitor for additional off-hours access"
+      ]
     },
     {
       "timestamp": "2025-09-02T01:11:00",
@@ -1011,7 +1411,11 @@
         "business_hours": "8-18",
         "external_ip": false,
         "failed_attempt": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Log the activity for security review",
+        "Monitor for additional off-hours access"
+      ]
     },
     {
       "timestamp": "2025-09-01T23:45:00",
@@ -1025,7 +1429,11 @@
         "business_hours": "8-18",
         "external_ip": false,
         "failed_attempt": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Log the activity for security review",
+        "Monitor for additional off-hours access"
+      ]
     },
     {
       "timestamp": "2025-09-01T22:55:00",
@@ -1039,7 +1447,11 @@
         "business_hours": "8-18",
         "external_ip": false,
         "failed_attempt": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Log the activity for security review",
+        "Monitor for additional off-hours access"
+      ]
     },
     {
       "timestamp": "2025-09-01T22:11:00",
@@ -1053,7 +1465,11 @@
         "business_hours": "8-18",
         "external_ip": false,
         "failed_attempt": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Log the activity for security review",
+        "Monitor for additional off-hours access"
+      ]
     },
     {
       "timestamp": "2025-09-01T21:26:00",
@@ -1067,7 +1483,11 @@
         "business_hours": "8-18",
         "external_ip": false,
         "failed_attempt": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Log the activity for security review",
+        "Monitor for additional off-hours access"
+      ]
     },
     {
       "timestamp": "2025-09-01T21:07:00",
@@ -1081,7 +1501,11 @@
         "business_hours": "8-18",
         "external_ip": false,
         "failed_attempt": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Log the activity for security review",
+        "Monitor for additional off-hours access"
+      ]
     },
     {
       "timestamp": "2025-09-01T20:50:00",
@@ -1095,7 +1519,11 @@
         "business_hours": "8-18",
         "external_ip": false,
         "failed_attempt": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Log the activity for security review",
+        "Monitor for additional off-hours access"
+      ]
     },
     {
       "timestamp": "2025-09-01T19:05:00",
@@ -1109,7 +1537,11 @@
         "business_hours": "8-18",
         "external_ip": false,
         "failed_attempt": true
-      }
+      },
+      "mitigation_suggestions": [
+        "Log the activity for security review",
+        "Monitor for additional off-hours access"
+      ]
     }
   ]
 }
