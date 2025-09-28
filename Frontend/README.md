@@ -1,3 +1,8 @@
+## 📋 Prerequisites
+
+- **Node.js** (version 14 or higher recommended)
+- npm (comes with Node.js)
+
 ## 🚀 Getting Started
 
 1. Install dependencies: `npm install`

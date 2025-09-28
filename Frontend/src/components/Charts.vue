@@ -1,5 +1,20 @@
 <template>
   <div class="charts-container">
+    <!-- Time Series Chart -->
+    <div class="row">
+      <div class="col-12 mb-4">
+        <div class="chart-card">
+          <div class="chart-header">
+            <h4>Activity Over Time</h4>
+            <p class="text-muted">Hourly activity distribution</p>
+          </div>
+          <div class="chart-wrapper">
+            <canvas ref="timeChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="row">
       <!-- Action Counts Bar Chart -->
       <div class="col-lg-6 mb-4">
@@ -23,21 +38,6 @@
           </div>
           <div class="chart-wrapper">
             <canvas ref="userChart"></canvas>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Time Series Chart -->
-    <div class="row">
-      <div class="col-12">
-        <div class="chart-card">
-          <div class="chart-header">
-            <h4>Activity Over Time</h4>
-            <p class="text-muted">Hourly activity distribution</p>
-          </div>
-          <div class="chart-wrapper">
-            <canvas ref="timeChart"></canvas>
           </div>
         </div>
       </div>
