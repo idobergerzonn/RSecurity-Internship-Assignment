@@ -88,3 +88,6 @@ venv.bak/
 *.sqlite
 *.sqlite3
 reports.db
+
+# Generated reports and outputs
+anomalies_report.json
