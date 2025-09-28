@@ -11,6 +11,7 @@ from datetime import datetime, timedelta
 from collections import defaultdict, Counter
 from typing import List, Dict, Any, Tuple
 import ipaddress
+from sklearn.ensemble import IsolationForest
 
 class SecurityAnomalyDetector:
     def __init__(self, csv_file: str):
@@ -93,12 +94,13 @@ class SecurityAnomalyDetector:
                 "Alert security team for potential account takeover",
                 "Review user's recent activity for unauthorized access"
             ])
-        elif anomaly_type == 'data_exfiltration':
+        elif anomaly_type == 'ml_detected':
             mitigations.extend([
-                "Immediately suspend user account and network access",
-                "Block all download capabilities for the user",
-                "Alert security team and management immediately",
-                "Preserve all logs and evidence for investigation"
+                "Review user activity patterns for unusual behavior",
+                "Correlate with other security alerts and logs",
+                "Monitor user for additional suspicious activity",
+                "Consider additional authentication requirements",
+                "Investigate the specific features that triggered the anomaly"
             ])
         
         return mitigations
@@ -352,33 +354,52 @@ class SecurityAnomalyDetector:
                 elif row['action'] == 'login_success':
                     failed_count = 0
     
-    def detect_data_exfiltration(self):
-        """Detect potential data exfiltration (multiple downloads)."""
-        print("Detecting potential data exfiltration...")
+    
+    def detect_ml_anomalies(self):
+        """Detect anomalies using ML (Isolation Forest)."""
+        print("Detecting anomalies using ML (Isolation Forest)...")
         
-        for user in self.df['user_id'].unique():
-            user_data = self.df[self.df['user_id'] == user].sort_values('timestamp')
-            downloads = user_data[user_data['action'] == 'download_file']
+        df = self.df.copy()
+        
+        # Feature engineering
+        df['hour'] = df['timestamp'].dt.hour
+        df['action_code'] = df['action'].astype('category').cat.codes
+        df['ip_numeric'] = df['ip_address'].apply(
+            lambda ip: sum([int(part) << (8 * i) for i, part in enumerate(reversed(ip.split('.')))])
+        )
+        
+        # Prepare features for ML model
+        features = df[['hour', 'action_code', 'ip_numeric']]
+        
+        # Train Isolation Forest model
+        clf = IsolationForest(contamination=0.01, random_state=42)
+        df['ml_anomaly'] = clf.fit_predict(features)
+        
+        # Get anomalies (predicted as -1)
+        anomalies = df[df['ml_anomaly'] == -1]
+        
+        # Add ML-detected anomalies to the main anomalies list
+        for _, row in anomalies.iterrows():
+            anomaly_details = {
+                'features_used': {
+                    'hour': int(row['hour']),
+                    'action_code': int(row['action_code']),
+                    'ip_numeric': int(row['ip_numeric'])
+                },
+                'ml_model': 'IsolationForest',
+                'contamination_rate': 0.01
+            }
             
-            if len(downloads) >= 8:  # 8 or more downloads
-                time_span = downloads.iloc[-1]['timestamp'] - downloads.iloc[0]['timestamp']
-                if time_span <= timedelta(hours=1):  # Within 1 hour
-                    anomaly_details = {
-                        'download_count': len(downloads),
-                        'time_span_hours': time_span.total_seconds() / 3600,
-                        'download_times': [d['timestamp'].isoformat() for _, d in downloads.iterrows()]
-                    }
-                    
-                    self.anomalies.append({
-                        'timestamp': downloads.iloc[0]['timestamp'].isoformat(),
-                        'user_id': user,
-                        'ip_address': downloads.iloc[0]['ip_address'],
-                        'anomaly_type': 'data_exfiltration',
-                        'reason': f'User downloaded {len(downloads)} files within {time_span.total_seconds()/3600:.1f} hours',
-                        'severity': 'high',
-                        'details': anomaly_details,
-                        'mitigation_suggestions': self.get_mitigation_suggestions('data_exfiltration', 'high', anomaly_details)
-                    })
+            self.anomalies.append({
+                'timestamp': row['timestamp'].isoformat(),
+                'user_id': row['user_id'],
+                'ip_address': row['ip_address'],
+                'anomaly_type': 'ml_detected',
+                'reason': 'Flagged as anomaly by Isolation Forest model',
+                'severity': 'medium',
+                'details': anomaly_details,
+                'mitigation_suggestions': self.get_mitigation_suggestions('ml_detected', 'medium', anomaly_details)
+            })
     
     def run_analysis(self):
         """Run all anomaly detection algorithms."""
@@ -393,7 +414,7 @@ class SecurityAnomalyDetector:
         self.detect_geo_hops()
         self.detect_off_hours_activity()
         self.detect_privilege_escalation()
-        self.detect_data_exfiltration()
+        self.detect_ml_anomalies()
         
         print("=" * 50)
         print(f"Analysis complete! Found {len(self.anomalies)} anomalies.")

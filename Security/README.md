@@ -5,7 +5,7 @@ A Python-based system that analyzes activity logs to detect suspicious patterns 
 
 ## Detection Approach
 
-The system uses **rule-based pattern recognition** with multiple detection algorithms:
+The system uses **rule-based pattern recognition** combined with **machine learning** for comprehensive anomaly detection:
 
 ### Core Detection Methods
 1. **Brute Force Detection**: Detected multiple (3 or more) failed login attempts from the same IP address within 10 minutes, indicating a potential brute-force attack.
@@ -13,16 +13,18 @@ The system uses **rule-based pattern recognition** with multiple detection algor
 3. **external_ip_access**: A login attempt was made from an external IP address (outside private/internal ranges) during non-business hours, raising suspicion of unauthorized access.
 4. **Geo-hop Detection**: A user switched between significantly different IP ranges (e.g., internal to external) within a short time window, suggesting a possible VPN usage or location spoofing.
 5. **Privilege Escalation**: A successful login was preceded by multiple failed attempts, possibly indicating a successful password guessing or account compromise.
-6. **Data Exfiltration**: A user downloaded 8 or more files within 1 hour, potentially signaling data exfiltration or unauthorized bulk access.
-7. **Off-hours Activity**: An entry is flagged as an anomaly if a user attempts to log in (either login_success or login_failed) outside of business hours (before 8:00 AM or after 6:00 PM), and one of the following is true:
+6. **Off-hours Activity**: An entry is flagged as an anomaly if a user attempts to log in (either login_success or login_failed) outside of business hours (before 8:00 AM or after 6:00 PM), and one of the following is true:
 The login comes from an external IP address → flagged as medium severity.
 OR
 The login attempt fails, regardless of IP type → flagged as low severity.
+7. **ML Anomaly Detection**: Uses Isolation Forest machine learning algorithm to identify unusual patterns in user behavior based on timing, action types, and IP addresses. Detects approximately 1% of the most anomalous activities that may not be caught by rule-based methods.
 
 
 ### Technical Implementation
 - **Time-based Analysis**: Sliding window algorithms for temporal pattern detection
 - **IP Network Analysis**: Uses Python's `ipaddress` module for network range classification
+- **Machine Learning**: Isolation Forest algorithm for unsupervised anomaly detection
+- **Feature Engineering**: Converts timestamps, actions, and IP addresses into ML-compatible features
 - **Severity Classification**: High/Medium/Low based on threat level
 - **Statistical Processing**: Pandas for efficient data manipulation and grouping
 
@@ -58,24 +60,11 @@ Security/
 ├── visualize_anomalies.py        # Visualization generator
 ├── sample_logs_no_status.csv     # Input data
 ├── anomalies_report.json         # Analysis results
-├── anomaly_analysis_dashboard.png # Visual dashboard
 └── requirements.txt              # Dependencies
 ```
 
 ## Dependencies
-- `pandas>=1.3.0`: Data processing
-- `ipaddress`: IP network analysis
-- `matplotlib`: Visualization
-
-## Sample Results
-From 416 log entries, the system typically detects:
-- **215 total anomalies** (11 high-severity, 204 medium-severity)
-- **1 brute force attack** from external IP
-- **10 privilege escalation** attempts
-- **Multiple geo-hops** and external IP access patterns
-
-## Security Features
-- **Offline Analysis**: No external network calls
-- **Local Processing**: All data processed locally
-- **Comprehensive Coverage**: Multiple attack vector detection
-- **Visual Analytics**: Charts and statistical summaries
+- `pandas>=1.3.0`: Data processing and analysis
+- `scikit-learn>=1.0.0`: Machine learning algorithms (Isolation Forest)
+- `matplotlib>=3.5.0`: Data visualization and dashboard generation
+- `ipaddress`: IP network analysis (built-in Python module)
