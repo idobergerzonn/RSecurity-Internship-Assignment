@@ -74,28 +74,11 @@ def create_visualizations(report):
     
     plt.tight_layout()
     plt.savefig('anomaly_analysis_dashboard.png', dpi=300, bbox_inches='tight')
-    plt.show()
+    plt.close()  # Close the plot instead of showing it
     
-    # Print summary statistics
-    print("\n" + "="*60)
-    print("ANOMALY ANALYSIS SUMMARY")
-    print("="*60)
-    print(f"Total anomalies found: {len(anomalies)}")
-    print(f"Analysis period: {df['timestamp'].min()} to {df['timestamp'].max()}")
-    print(f"Unique users affected: {len(set(a['user_id'] for a in anomalies))}")
-    print(f"Unique IP addresses involved: {len(set(a['ip_address'] for a in anomalies))}")
-    
-    print("\nAnomaly Types:")
-    for anomaly_type, count in anomaly_counts.most_common():
-        print(f"  {anomaly_type}: {count}")
-    
-    print("\nSeverity Breakdown:")
-    for severity, count in severity_counts.most_common():
-        print(f"  {severity.upper()}: {count}")
-    
-    print("\nTop 5 Most Affected Users:")
-    for user, count in user_counts.most_common(5):
-        print(f"  {user}: {count} anomalies")
+    # Only print a short success message
+    print(f"✓ Visualization completed successfully! Dashboard saved as 'anomaly_analysis_dashboard.png'")
+    print(f"  Processed {len(anomalies)} anomalies from {len(set(a['user_id'] for a in anomalies))} users")
 
 def main():
     """Main function to run visualizations."""
