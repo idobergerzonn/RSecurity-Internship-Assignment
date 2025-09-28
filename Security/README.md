@@ -17,7 +17,7 @@ The system uses **rule-based pattern recognition** combined with **machine learn
 The login comes from an external IP address → flagged as medium severity.
 OR
 The login attempt fails, regardless of IP type → flagged as low severity.
-7. **ML Anomaly Detection**: Uses Isolation Forest machine learning algorithm to identify unusual patterns in user behavior based on timing, action types, and IP addresses. Detects approximately 1% of the most anomalous activities that may not be caught by rule-based methods.
+7. **ML Anomaly Detection**: Uses Isolation Forest machine learning algorithm to identify unusual patterns in user behavior based on timing, action types, and IP addresses.
 
 
 ### Technical Implementation
