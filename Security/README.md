@@ -64,7 +64,9 @@ Security/
 ```
 
 ## Dependencies
+
+
 - `pandas>=1.3.0`: Data processing and analysis
 - `scikit-learn>=1.0.0`: Machine learning algorithms (Isolation Forest)
 - `matplotlib>=3.5.0`: Data visualization and dashboard generation
-- `ipaddress`: IP network analysis (built-in Python module)
+- `ipaddress`: IP network analysis 
