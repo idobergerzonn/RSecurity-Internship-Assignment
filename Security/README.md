@@ -67,15 +67,3 @@ Security/
 - `ipaddress`: IP network analysis
 - `matplotlib`: Visualization
 
-## Sample Results
-From 416 log entries, the system typically detects:
-- **215 total anomalies** (11 high-severity, 204 medium-severity)
-- **1 brute force attack** from external IP
-- **10 privilege escalation** attempts
-- **Multiple geo-hops** and external IP access patterns
-
-## Security Features
-- **Offline Analysis**: No external network calls
-- **Local Processing**: All data processed locally
-- **Comprehensive Coverage**: Multiple attack vector detection
-- **Visual Analytics**: Charts and statistical summaries
