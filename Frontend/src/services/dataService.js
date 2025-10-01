@@ -53,6 +53,27 @@ export class DataService {
 
     return filtered
   }
+  
+  // Filter data by date range
+  filterByDateRange(data, startDate, endDate) {
+    return data.filter(item => {
+      const itemDate = new Date(item.timestamp)
+      const itemDateString = itemDate.toISOString().split('T')[0] // Get YYYY-MM-DD format
+      
+      let startMatch = true
+      let endMatch = true
+      
+      if (startDate) {
+        startMatch = itemDateString >= startDate
+      }
+      
+      if (endDate) {
+        endMatch = itemDateString <= endDate
+      }
+      
+      return startMatch && endMatch
+    })
+  }
 
   // Get unique actions for filter dropdown
   getUniqueActions() {
@@ -77,6 +98,7 @@ export class DataService {
     })
     return counts
   }
+
 }
 
 export default new DataService()

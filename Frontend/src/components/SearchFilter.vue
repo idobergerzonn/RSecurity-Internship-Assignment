@@ -2,7 +2,7 @@
   <div class="search-filter-container">
     <div class="row g-2 align-items-end">
       <!-- Search Input -->
-      <div class="col-xl-4 col-lg-5 col-md-6">
+      <div v-if="enableTextSearch" class="col-xl-4 col-lg-5 col-md-6">
         <div class="search-box">
           <div class="input-group">
             <span class="input-group-text">
@@ -28,7 +28,7 @@
       </div>
 
       <!-- Action Filter -->
-      <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6">
+      <div v-if="enableActionFilter" class="col-xl-2 col-lg-2 col-md-3 col-sm-6">
         <select 
           class="form-select" 
           v-model="selectedAction"
@@ -46,7 +46,7 @@
       </div>
 
       <!-- Date Range Filter -->
-      <div class="col-xl-6 col-lg-5 col-md-12">
+      <div v-if="enableDateFilter" class="col-xl-6 col-lg-5 col-md-12">
         <div class="row g-2">
           <div class="col-6">
             <label for="startDate" class="form-label small">Start Date</label>
@@ -77,7 +77,7 @@
       <div class="d-flex align-items-center flex-wrap gap-2">
         <span class="text-muted">Active filters:</span>
         
-        <span v-if="searchTerm" class="badge bg-primary">
+        <span v-if="enableTextSearch && searchTerm" class="badge bg-primary">
           Search: "{{ searchTerm }}"
           <button 
             class="btn-close btn-close-white ms-1" 
@@ -86,7 +86,7 @@
           ></button>
         </span>
         
-        <span v-if="selectedAction !== 'all'" class="badge bg-info">
+        <span v-if="enableActionFilter && selectedAction !== 'all'" class="badge bg-info">
           Action: {{ formatAction(selectedAction) }}
           <button 
             class="btn-close btn-close-white ms-1" 
@@ -95,7 +95,7 @@
           ></button>
         </span>
         
-        <span v-if="startDate || endDate" class="badge bg-warning">
+        <span v-if="enableDateFilter && (startDate || endDate)" class="badge bg-warning">
           Date: {{ formatDateRange() }}
           <button 
             class="btn-close btn-close-white ms-1" 
@@ -122,6 +122,18 @@ const props = defineProps({
   uniqueActions: {
     type: Array,
     required: true
+  },
+  enableTextSearch: {
+    type: Boolean,
+    default: true
+  },
+  enableActionFilter: {
+    type: Boolean,
+    default: true
+  },
+  enableDateFilter: {
+    type: Boolean,
+    default: true
   }
 })
 
@@ -133,7 +145,21 @@ const startDate = ref('')
 const endDate = ref('')
 
 const hasActiveFilters = computed(() => {
-  return searchTerm.value || selectedAction.value !== 'all' || startDate.value || endDate.value
+  let hasActive = false
+  
+  if (props.enableTextSearch && searchTerm.value) {
+    hasActive = true
+  }
+  
+  if (props.enableActionFilter && selectedAction.value !== 'all') {
+    hasActive = true
+  }
+  
+  if (props.enableDateFilter && (startDate.value || endDate.value)) {
+    hasActive = true
+  }
+  
+  return hasActive
 })
 
 const handleSearch = () => {
@@ -165,10 +191,22 @@ const clearDateFilter = () => {
 }
 
 const clearAllFilters = () => {
-  searchTerm.value = ''
-  selectedAction.value = 'all'
-  startDate.value = ''
-  endDate.value = ''
+  if (props.enableTextSearch) {
+    searchTerm.value = ''
+    emit('search', '')
+  }
+  
+  if (props.enableActionFilter) {
+    selectedAction.value = 'all'
+    emit('filter', 'all')
+  }
+  
+  if (props.enableDateFilter) {
+    startDate.value = ''
+    endDate.value = ''
+    emit('dateFilter', { startDate: '', endDate: '' })
+  }
+  
   emit('clearAll')
 }
 

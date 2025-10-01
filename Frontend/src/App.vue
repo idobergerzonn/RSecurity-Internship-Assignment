@@ -53,31 +53,12 @@ const applyFilters = () => {
   
   // Apply date filter
   if (startDate.value || endDate.value) {
-    data = filterByDateRange(data, startDate.value, endDate.value)
+    data = dataService.filterByDateRange(data, startDate.value, endDate.value)
   }
   
   filteredData.value = data
 }
 
-const filterByDateRange = (data, startDate, endDate) => {
-  return data.filter(item => {
-    const itemDate = new Date(item.timestamp)
-    const itemDateString = itemDate.toISOString().split('T')[0] // Get YYYY-MM-DD format
-    
-    let startMatch = true
-    let endMatch = true
-    
-    if (startDate) {
-      startMatch = itemDateString >= startDate
-    }
-    
-    if (endDate) {
-      endMatch = itemDateString <= endDate
-    }
-    
-    return startMatch && endMatch
-  })
-}
 
 const getTimeDistribution = () => {
   const hourlyData = {}
@@ -162,6 +143,9 @@ const handleClearAll = () => {
         <!-- Search and Filters -->
         <SearchFilter
           :unique-actions="uniqueActions"
+          :enable-text-search="true"
+          :enable-action-filter="true"
+          :enable-date-filter="true"
           @search="handleSearch"
           @filter="handleFilter"
           @date-filter="handleDateFilter"
