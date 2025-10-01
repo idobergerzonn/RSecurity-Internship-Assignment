@@ -76,3 +76,16 @@ All endpoints except the health check require an API key:
 - `requirements.txt` - Python dependencies
 - `run_server.py` - Server startup script
 
+
+## 🐳 Running with Docker
+
+You can run the backend API inside a Docker container.
+
+1. **Build the Docker image:**
+```bash
+docker build -t rsecurity-backend .
+
+2. **Run the container:**
+```bash
+docker run -d -p 8000:8000 rsecurity-backend
+
