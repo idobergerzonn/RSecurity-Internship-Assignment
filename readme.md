@@ -31,8 +31,7 @@ See `security/README.md` for instructions on analyzing the log files.
 - Search reports by text content
 - Responsive frontend design with filtering, charts, and interactive elements (hover tooltips, sorting)
 - Nice, clean UI design for the frontend
-- Advanced anomaly detection logic in security analysis
 - Visualizations of anomalies (charts/graphs) in the security analysis
-- Suggested mitigations for detected anomalies (e.g., "block IP", "alert admin")
-- Use of algorithmic or ML-based methods for anomaly detection (clustering, anomaly detection algorithms)
+- Suggested mitigations for detected anomalies
+- Use of ML-based methods for anomaly detection
 
