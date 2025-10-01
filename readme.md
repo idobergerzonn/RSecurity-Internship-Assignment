@@ -2,7 +2,7 @@
 
 This repository contains the full solution for the RSecurity Internship Assignment, including all three parts:
 
-- **Frontend:** Interactive dashboard built with Vue/React
+- **Frontend:** Interactive dashboard built with Vue.js
 - **Backend:** REST API service using FastAPI and SQLite
 - **Security/Analysis:** Log analysis script detecting suspicious activity
 
@@ -20,7 +20,6 @@ See `security/README.md` for instructions on analyzing the log files.
 ## Notes / Assumptions
 - Backend runs on port 8000
 - Frontend runs on port 5173
-- API authentication via X-API-Key header
 - Sample data displayed in the frontend is derived from Part 3 (Security/Analysis)
 - SQLite database used for persistence
 
