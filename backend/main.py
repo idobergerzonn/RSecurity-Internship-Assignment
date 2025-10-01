@@ -16,7 +16,7 @@ from error_handling import (
 app = FastAPI(title="Intelligence Reports API", version="1.0.0")
 
 # API Key Configuration
-API_KEY = "your-secret-api-key-12345"  # Change this to a secure key
+API_KEY = "Rsecurity"  # Change this to a secure key
 
 # Data models using Pydantic
 class Report(BaseModel):

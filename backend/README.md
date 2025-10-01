@@ -38,7 +38,7 @@ The Swagger documentation includes:
 ### Testing with Postman
 
 1. **Import the API**: Use the `swagger.yaml` file to import the API specification into Postman
-2. **Set up authentication**: In the Authorization tab,configure the X-API-Key header with value `your-secret-api-key-12345` for all requests except '/'
+2. **Set up authentication**: In the Authorization tab,configure the X-API-Key header with value `Rsecurity` for all requests except '/'
 3. **Test endpoints**: Use the imported collection to test all available endpoints
 4. **Environment variables**: Create a Postman environment with variables for the base URL and API key
 
@@ -56,7 +56,7 @@ The Swagger documentation includes:
 
 All endpoints except the health check require an API key:
 - **Header**: `X-API-Key`
-- **Value**: `your-secret-api-key-12345`
+- **Value**: `Rsecurity`
 
 ## Features
 
@@ -82,10 +82,12 @@ All endpoints except the health check require an API key:
 You can run the backend API inside a Docker container.
 
 1. **Build the Docker image:**
-```bash
-docker build -t rsecurity-backend .
+   ```bash
+   docker build -t rsecurity-backend .
+   ```
 
 2. **Run the container:**
-```bash
-docker run -d -p 8000:8000 rsecurity-backend
+   ```bash
+   docker run -d -p 8000:8000 rsecurity-backend
+   ```
 
