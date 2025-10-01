@@ -91,3 +91,4 @@ reports.db
 
 # Generated reports and outputs
 anomalies_report.json
+anomaly_analysis_dashboard.png
