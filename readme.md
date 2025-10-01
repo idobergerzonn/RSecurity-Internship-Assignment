@@ -19,13 +19,21 @@ See `security/README.md` for instructions on analyzing the log files.
 
 ## Notes / Assumptions
 - Backend runs on port 8000
+- Frontend runs on port 5173
 - API authentication via X-API-Key header
-- Sample data for frontend is included in `frontend/data/`
+- Sample data displayed in the frontend is derived from Part 3 (Security/Analysis)
 - SQLite database used for persistence
 
 ## Highlights / Extra Features
 - Completed all required tasks and all bonus features
 - Dockerized backend
 - Full Swagger documentation for the API
-- Responsive frontend design with filtering and charts
+- API authentication via X-API-Key header
+- Search reports by text content
+- Responsive frontend design with filtering, charts, and interactive elements (hover tooltips, sorting)
+- Nice, clean UI design for the frontend
 - Advanced anomaly detection logic in security analysis
+- Visualizations of anomalies (charts/graphs) in the security analysis
+- Suggested mitigations for detected anomalies (e.g., "block IP", "alert admin")
+- Use of algorithmic or ML-based methods for anomaly detection (clustering, anomaly detection algorithms)
+
